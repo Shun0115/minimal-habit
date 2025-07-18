@@ -1,0 +1,45 @@
+table {
+  font-size: 16px;
+}
+th {
+  background-color: #f0f0f0;
+}
+td {
+  height: 40px;
+}
+
+body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 2em;
+}
+input, button {
+    padding: 0.5em;
+    font-size: 1em;
+}
+#celebrate-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* 👇絶対にこの2つセットで中央配置 */
+  transform: translate(-50%, -50%);
+  font-size: 2.5em;
+  color: gold;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 0.5em 1em;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  text-align: center;
+  white-space: pre-line;
+  min-width: 280px;
+  max-width: 80vw;
+  /* 👇これを消す！！ */
+  /* left: 50vw; */
+  /* right: auto; */
+}
+
+
+
+
+

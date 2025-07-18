@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>習慣化アプリ</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>🌱 習慣化チャレンジ</h1>
+
+  {% if data.habit %}
+    <p><strong>習慣：</strong>{{ data.habit }}</p>
+    <form method="POST">
+      <button type="submit" name="done" value="1">今日やった！</button>
+    </form>
+    <p>✅ 達成日数：{{ data.log | length }} 日</p>
+    <p>🔥 連続達成日数：{{ streak }} 日</p>
+    <p>📊 今月の達成率：{{ achievement_rate }}%</p>
+    <h2>📅 {{ year }}年{{ month }}月の達成カレンダー</h2>
+
+<p>
+  {% set prev_month = month - 1 %}
+  {% set prev_year = year %}
+  {% if prev_month == 0 %}
+    {% set prev_month = 12 %}
+    {% set prev_year = year - 1 %}
+  {% endif %}
+
+  {% set next_month = month + 1 %}
+  {% set next_year = year %}
+  {% if next_month == 13 %}
+    {% set next_month = 1 %}
+    {% set next_year = year + 1 %}
+  {% endif %}
+
+  <a href="/?year={{ prev_year }}&month={{ prev_month }}">← 前の月</a>
+  |
+  <a href="/?year={{ next_year }}&month={{ next_month }}">次の月 →</a>
+</p>
+
+  <table border="1" style="margin: 0 auto; border-collapse: collapse;">
+    <tr>
+      <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+    </tr>
+    {% for week in calendar_weeks %}
+      <tr>
+        {% for day in week %}
+          <td style="padding: 8px; width: 40px; text-align: center;">
+            {% if day.day %}
+              {{ day.day }}<br>
+              {% if day.done %}
+                ✔
+              {% endif %}
+            {% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+
+{% else %}
+    <form method="POST">
+      <input type="text" name="habit" placeholder="習慣を入力（例：毎朝ストレッチ）" required>
+      <button type="submit">設定</button>
+    </form>
+  {% endif %}
+
+
+  <!-- ✅ アニメーション用スクリプト -->
+  <script>
+window.addEventListener("DOMContentLoaded", () => {
+  {% if celebrate %}
+  const msg = document.getElementById("celebrate-message");
+  msg.style.display = "block";
+
+  // アニメーションとタイマー両方で消えるように
+  const animation = msg.animate(
+    [
+      { transform: "scale(1)", opacity: 1 },
+      { transform: "scale(1.5)", opacity: 0 }
+    ],
+    {
+      duration: 3000,   // 3秒間表示
+      easing: "ease-out"
+    }
+  );
+
+  animation.onfinish = () => {
+    msg.style.display = "none";
+  };
+
+  // まれにアニメーション終了イベントが発火しない場合も保険
+  setTimeout(() => {
+    msg.style.display = "none";
+  }, 3200); // アニメーションよりちょい長め
+  {% endif %}
+});
+</script>
+
+   <!-- ✅ アニメーション用メッセージ -->
+  <div id="celebrate-message">
+    <span>🎉 よくやりました！</span>
+  </div>
+</body>
+</html>
