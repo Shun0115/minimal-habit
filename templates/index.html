@@ -2,17 +2,20 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>習慣化アプリ</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
   <h1>🌱 習慣化チャレンジ</h1>
-
+  <button id="toggle-theme">🌗 テーマ切り替え</button>
   {% if data.habit %}
     <p><strong>習慣：</strong>{{ data.habit }}</p>
     <form method="POST">
-      <button type="submit" name="done" value="1">今日やった！</button>
+      <textarea name="memo_text" rows="2" placeholder="今日のメモを書く">{{ data.memos[today_str] if today_str in data.memos else '' }}</textarea>
+      <button type="submit" name="memo" value="1">💬 メモ保存</button>
     </form>
+
     <p>✅ 達成日数：{{ data.log | length }} 日</p>
     <p>🔥 連続達成日数：{{ streak }} 日</p>
     <p>📊 今月の達成率：{{ achievement_rate }}%</p>
@@ -43,20 +46,34 @@
       <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
     </tr>
     {% for week in calendar_weeks %}
-      <tr>
-        {% for day in week %}
-          <td style="padding: 8px; width: 40px; text-align: center;">
-            {% if day.day %}
-              {{ day.day }}<br>
-              {% if day.done %}
-                ✔
-              {% endif %}
-            {% endif %}
-          </td>
-        {% endfor %}
-      </tr>
+  <tr>
+    {% for day in week %}
+      {% if day.day %}
+        <td onclick="location.href='/?selected_date={{ year }}-{{ '{:02d}'.format(month) }}-{{ '{:02d}'.format(day.day) }}'"
+            style="cursor: pointer; padding: 8px; width: 40px; text-align: center;">
+          {{ day.day }}<br>
+          {% if day.done %}✔{% endif %}
+          {% if day.has_memo %}📝{% endif %}
+        </td>
+      {% else %}
+        <td style="padding: 8px; width: 40px;">&nbsp;</td>
+      {% endif %}
     {% endfor %}
+  </tr>
+{% endfor %}
+
   </table>
+
+  {% if selected_date and selected_memo %}
+    <div style="margin-top: 1em; border: 1px solid #ccc; padding: 1em;">
+      <h3>📝 {{ selected_date }} のメモ</h3>
+      <p>{{ selected_memo }}</p>
+    </div>
+{% elif selected_date %}
+  <div style="margin-top: 1em;">
+    <p>{{ selected_date }} のメモはありません。</p>
+  </div>
+{% endif %}
 
 {% else %}
     <form method="POST">
@@ -94,6 +111,21 @@ window.addEventListener("DOMContentLoaded", () => {
     msg.style.display = "none";
   }, 3200); // アニメーションよりちょい長め
   {% endif %}
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleButton = document.getElementById("toggle-theme");
+  const currentTheme = localStorage.getItem("theme") || "light";
+  document.body.classList.add(currentTheme);
+
+  toggleButton.addEventListener("click", () => {
+    const isDark = document.body.classList.contains("dark");
+    const newTheme = isDark ? "light" : "dark";
+    document.body.classList.remove("light", "dark");
+    document.body.classList.add(newTheme);
+    localStorage.setItem("theme", newTheme);
+  });
 });
 </script>
 
