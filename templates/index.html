@@ -16,6 +16,10 @@
       <button type="submit" name="memo" value="1">💬 メモ保存</button>
     </form>
 
+  <form method="POST">
+    <button type="submit" name="done" value="1">✅ 今日やった！</button>
+  </form>
+
     <p>✅ 達成日数：{{ data.log | length }} 日</p>
     <p>🔥 連続達成日数：{{ streak }} 日</p>
     <p>📊 今月の達成率：{{ achievement_rate }}%</p>
