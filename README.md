@@ -41,7 +41,7 @@ python app.py
 5. ブラウザでアクセス
 http://localhost:5003
 
-📁 ファイル構成（例）
+## 📁 ファイル構成（例）
 habit-tracker-app/
 ├── app.py
 ├── data.json
@@ -50,5 +50,9 @@ habit-tracker-app/
 ├── static/
 │   └── style.css
 └── README.md
+
 📸 スクリーンショット
-![alt text](image.png)
+<img width="725" height="972" alt="image" src="https://github.com/user-attachments/assets/eb08cebf-7204-4160-877d-43235c44edcb" />
+
+
+
