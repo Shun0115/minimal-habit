@@ -40,3 +40,15 @@ python app.py
 （app.py があなたのファイル名の場合）
 5. ブラウザでアクセス
 http://localhost:5003
+
+📁 ファイル構成（例）
+habit-tracker-app/
+├── app.py
+├── data.json
+├── templates/
+│   └── index.html
+├── static/
+│   └── style.css
+└── README.md
+📸 スクリーンショット
+![alt text](image.png)
