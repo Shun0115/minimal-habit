@@ -109,3 +109,41 @@ button {
   font: inherit;
   text-align: center;
 }
+
+/* テーマ切り替えボタン専用スタイル */
+#toggle-theme {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  width: auto;
+  background-color: #eee;
+  color: #222;
+}
+
+/* ダークモード時のスタイル */
+body.dark #toggle-theme {
+  background-color: #444;
+  color: #fff;
+}
+
+/* ダークモードでカレンダー曜日（th）の背景と文字色を調整 */
+body.dark th {
+  background-color: #333;
+  color: #f5f5f5;
+}
+
+/* ボタンのダークモード対応（メモ保存、今日やった など） */
+body.dark button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+/* 明るいモードでの通常ボタンも明示しておくと安心 */
+body.light button {
+  background-color: #eee;
+  color: #222;
+  border: 1px solid #ccc;
+}
