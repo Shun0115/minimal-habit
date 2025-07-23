@@ -51,8 +51,7 @@ habit-tracker-app/
 │   └── style.css
 └── README.md
 
-📸 スクリーンショット
-<img width="725" height="972" alt="image" src="https://github.com/user-attachments/assets/eb08cebf-7204-4160-877d-43235c44edcb" />
+
 
 
 
